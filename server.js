@@ -69,8 +69,13 @@ app.get("/scrape", function(req, res) {
 
 // Route for getting all Articles from the db
 app.get("/articles", function(req, res) {
-  
-    //Add function to this route to get all articles
+  db.Article.find({})
+    .then(function(dbArticle) {
+        res.json(dbArticle);
+    })
+    .catch(function(err) {
+        res.log(err);
+    });
 });
 
 
