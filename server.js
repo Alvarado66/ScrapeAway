@@ -21,17 +21,17 @@ mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true 
 
 app.get("/scrape", function (req, res) {
     axios.get("https://www.npr.org/sections/news/").then(function (response) {
-
+        console.log(response.data)
         var $ = cheerio.load(response.data);
 
-
-        $("p.title").each(function (i, element) {
+        $("div.item-info").each(function (i, element) {
             var result = {};
-
             result.title = $(this)
+                .children("h2.title")
                 .children("a")
                 .text();
             result.link = $(this)
+                .children("h2.title")
                 .children("a")
                 .attr("href");
             console.log(result)
